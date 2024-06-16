@@ -1,33 +1,16 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import EventService from '@/services/EventService'
-
 const props = defineProps({
-  id: {
+  event: {
+    type: Object,
     required: true
   }
-})
-
-const event = ref(null)
-
-onMounted(() => {
-  EventService.getEvent(props.id)
-    .then((response) => {
-      event.value = response.data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
 })
 </script>
 
 <template>
-  <div v-if="event">
-    <h1>{{ event.title }}</h1>
-    <p>{{ event.name }} on {{ event.date }} @ {{ event.location }}</p>
-    <p>{{ event.location }}</p>
-    <RouterLink class="back-btn" :to="{ name: 'event-list' }">Back</RouterLink>
-  </div>
+  <p>{{ props.event.name }} on {{ props.event.date }} @ {{ props.event.location }}</p>
+  <p>{{ props.event.location }}</p>
+  <RouterLink class="back-btn" :to="{ name: 'EventList' }">Back</RouterLink>
 </template>
 
 <style scoped>
